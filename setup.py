@@ -9,7 +9,8 @@ setup(
     data_files=[
         ('share/ament_index/resource_index/packages', ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
-        ('share/' + package_name, ['transitions_ros/state.py', 'transitions_ros/machine.py'])
+        ('share/' + package_name, ['transitions_ros/state.py', 'transitions_ros/machine.py', 'transitions_ros/machine_executor_node.py']),
+        ('share/' + package_name, ['transitions_ros/machine_executor_params.yaml'])
     ],
     install_requires=['setuptools'],
     zip_safe=True,
@@ -17,5 +18,10 @@ setup(
     maintainer_email='info@dotxautomation.com',
     description='Finite-state machine with ROS 2 capabilities.',
     license='Apache-2.0',
-    tests_require=['pytest']
+    tests_require=['pytest'],
+    entry_points={
+        'console_scripts': [
+            'machine_executor = transitions_ros.machine_executor:main'
+        ],
+    },
 )

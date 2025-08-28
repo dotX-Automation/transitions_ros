@@ -66,5 +66,9 @@ class Machine(transitions.Machine):
             if len(next_trigger) == 0:
                 break
 
+            # If the current state routine is non-blocking, keep doing this
+            if next_trigger == 'RUNNING':
+                continue
+
             # Get to the next state
             self.trigger(next_trigger)
