@@ -1,0 +1,64 @@
+params:
+  autostart:
+    type: bool
+    default_value: false
+    description: "Starts FSM execution automatically at node startup"
+    constraints: "Cannot be changed"
+    read_only: true
+    var_name: _autostart
+
+  blackboard.persistent:
+    type: bool
+    default_value: false
+    description: "If enabled, blackboard is not cleared on state machine termination"
+    constraints: ""
+    read_only: false
+    var_name: _blackboard_persistent
+
+  timeout_sec:
+    type: double
+    default_value: 5.0
+    min_value: 0.0
+    max_value: 86400.0
+    step: 0.0
+    description: "Timeout [s] for service/action client operations"
+    constraints: "Cannot be changed"
+    read_only: true
+    var_name: _timeout_sec
+
+  transitions.initial_state:
+    type: string
+    default_value: ""
+    description: "Name of the initial state of the state machine"
+    constraints: "Should be uppercase, changes require executor restart"
+    read_only: false
+
+  transitions.routines_module:
+    type: string
+    default_value: ""
+    description: "Name of a loadable Python module in containing state routines, in the form 'somepackage.somemodule'"
+    constraints: "Routines names should be lowercase and of the form 'statename_routine(node: transitions_ros.MachineExecutorNode, spin: bool, wait_servers: bool, timeout_sec: double) -> str', be non-blocking and return the next trigger/'RUNNING', instantiate their publishers/clients as first thing adding them to the entity manager, changes require executor restart"
+    read_only: false
+
+  transitions.states:
+    type: string_array
+    default_value:
+      - ""
+    constraints: "Entries should be uppercase, changes require executor restart"
+    read_only: false
+
+  transitions.transitions_table:
+    type: string_array
+    default_value:
+      - ""
+    description: "List of transitions in the format 'trigger;FROM_STATE;TO_STATE'"
+    constraints: "Triggers should be lowercase, states should be uppercase, changes require executor restart"
+    read_only: false
+
+  wait_servers:
+    type: bool
+    default_value: false
+    description: "Wait for service/action servers to come up during client initialization"
+    constraints: "Cannot be changed"
+    read_only: true
+    var_name: _wait_servers
