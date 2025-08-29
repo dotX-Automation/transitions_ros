@@ -1,5 +1,5 @@
 """
-transitions_ros machine executor node application.
+transitions_ros machine executor node standalone application.
 
 August 28, 2025
 """

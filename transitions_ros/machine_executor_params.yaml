@@ -37,13 +37,14 @@ params:
     type: string
     default_value: ""
     description: "Name of a loadable Python module in containing state routines, in the form 'somepackage.somemodule'"
-    constraints: "Routines names should be lowercase and of the form 'statename_routine(node: transitions_ros.MachineExecutorNode, spin: bool, wait_servers: bool, timeout_sec: double) -> str', be non-blocking and return the next trigger/'RUNNING', instantiate their publishers/clients as first thing adding them to the entity manager, changes require executor restart"
+    constraints: "Routines names should be lowercase and of the form 'statename_routine(node: NodeBase, wait_servers: bool, timeout_sec: double) -> str', be non-blocking and return the next trigger/'RUNNING', instantiate their publishers/clients as first thing adding them to the entity manager, changes require executor restart"
     read_only: false
 
   transitions.states:
     type: string_array
     default_value:
       - ""
+    description: "List of states in the state machine"
     constraints: "Entries should be uppercase, changes require executor restart"
     read_only: false
 

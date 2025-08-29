@@ -1,7 +1,7 @@
 """
 Implementation of the state of a ROS 2-compatible transitions machine.
 
-Roberto Masocco <r.masocco@dotxautomation.com>
+dotX Automation s.r.l. <info@dotxautomation.com>
 
 September 11, 2022
 """
@@ -32,10 +32,9 @@ class State(transitions.State):
 
     def __init__(
             self,
-            node: NodeType = None,
             routine: StateRoutineType = None,
             *args,
-            **kwargs) -> None:
+            **kwargs):
         """
         Creates a new State object.
 
@@ -43,16 +42,27 @@ class State(transitions.State):
         :param routine: Routine associated with this state.
         """
         # Set internal data for this implementation
-        self._node = node
         self._routine = routine
 
         # Call State constructor
         super().__init__(*args, **kwargs)
 
-    def routine(self) -> str:
+    def routine(
+        self,
+        node: NodeType = None,
+        wait_servers: bool = False,
+        timeout_sec: float = 0.0
+    ) -> str:
         """
         Executes the routine associated with this state and returns the next trigger.
 
+        :param node: ROS 2 node to use.
+        :param wait_servers: Wait for service/action servers to be available.
+        :param timeout_sec: Timeout for service/action client operations.
         :returns: Next trigger from the routine.
         """
-        return self._routine(self._node)
+        return self._routine(
+            node=node,
+            wait_servers=wait_servers,
+            timeout_sec=timeout_sec
+        )

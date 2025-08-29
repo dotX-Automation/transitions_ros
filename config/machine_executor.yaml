@@ -1,0 +1,15 @@
+/machine_executor_node:
+  ros__parameters:
+    autostart: false
+    blackboard:
+      persistent: false
+    timeout_sec: 5.0
+    transitions:
+      initial_state: ''
+      routines_module: ''
+      states:
+        - ''
+      transitions_table:
+        - ''
+    use_sim_time: false
+    wait_servers: false
