@@ -149,14 +149,18 @@ class MachineExecutorNode(NodeBase):
             self._enable_cgroup
         )
 
-    def publish_machine_state(self, state: str):
+    def publish_machine_state(self, state: str, throttle_duration_sec: float = 0.0):
         """
         Publish the current state of the machine (either a state name or anything else) on the state topic.
 
         :param state: State (string) to publish.
+        :param throttle_duration_sec: Minimum time interval between two consecutive messages (0.0 = no throttling).
         """
         self._fsm_state_pub.publish(String(data=state))
-        self.get_logger().warn(state)
+        if throttle_duration_sec <= 0.0:
+            self.get_logger().warning(state)
+        else:
+            self.get_logger().warning(state, throttle_duration_sec=throttle_duration_sec)
 
     def _enable_clbk(self, req: SetBool.Request, res: SetBool.Response) -> SetBool.Response:
         """
@@ -300,9 +304,9 @@ class MachineExecutorNode(NodeBase):
 
             # Clean up data structures
             if not self._blackboard_persistent:
-                self._blackboard = {}
+                self.blackboard.clear()
             self._fsm = None
-            self.entities_map = {}
+            self.entities_map.clear()
 
             # Unload routines module
             if self._routines_module_name in sys.modules:
