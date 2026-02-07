@@ -3,6 +3,11 @@
     autostart: false
     blackboard:
       persistent: false
+    dua:
+      tf_server:
+        get_transform: true
+        transform_pose: true
+        wait_servers: false
     timeout_sec: 5.0
     transitions:
       initial_state: ''

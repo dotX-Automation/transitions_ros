@@ -64,7 +64,11 @@ def generate_launch_description():
         emulate_tty=True,
         output='both',
         log_cmd=True,
-        parameters=[cf]
+        parameters=[cf],
+        remappings=[
+            ('/get_transform',  '/get_transform'),
+            ('/transform_pose', '/transform_pose')
+        ]
     )
     ld.add_action(node)
 
