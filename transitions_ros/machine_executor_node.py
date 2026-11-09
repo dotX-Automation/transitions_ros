@@ -22,8 +22,11 @@ August 28, 2025
 
 import gc
 import importlib
+import os
 import sys
 import threading
+
+from ament_index_python.packages import get_package_share_directory
 
 import rclpy
 from rclpy.callback_groups import MutuallyExclusiveCallbackGroup
@@ -97,7 +100,7 @@ class MachineExecutorNode(NodeBase):
       - 'entities_map' dictionary for registering topic publishers, service/action clients, avoiding duplication.
     """
 
-    _PARAMS_FILE_PATH = "/opt/ros/dua-utils/install/share/transitions_ros/machine_executor_params.yaml"
+    _PARAMS_FILE_PATH = os.path.join(get_package_share_directory('transitions_ros'), 'machine_executor_params.yaml')
 
     def __init__(self, node_name: str, verbose: bool = True):
         """

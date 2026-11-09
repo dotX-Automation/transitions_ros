@@ -6,15 +6,13 @@ package_name = 'transitions_ros'
 
 setup(
     name=package_name,
-    version='1.1.2',
+    version='1.2.1',
     packages=find_packages(exclude=['test']),
     data_files=[
         ('share/ament_index/resource_index/packages', ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
         (os.path.join('share', package_name, 'launch'), glob('launch/*.launch.py')),
         (os.path.join('share', package_name, 'config'), glob('config/*.yaml')),
-        ('share/' + package_name, ['transitions_ros/state.py', 'transitions_ros/machine.py']),
-        ('share/' + package_name, ['transitions_ros/machine_executor_node.py']),
         ('share/' + package_name, ['transitions_ros/machine_executor_params.yaml'])
     ],
     install_requires=['setuptools'],
@@ -23,7 +21,7 @@ setup(
     maintainer_email='info@dotxautomation.com',
     description='Finite-state machine with ROS 2 capabilities.',
     license='Apache-2.0',
-    tests_require=['pytest'],
+    extras_require={'test': ['pytest']},
     entry_points={
         'console_scripts': [
             'machine_executor_app = transitions_ros.machine_executor_app:main'
